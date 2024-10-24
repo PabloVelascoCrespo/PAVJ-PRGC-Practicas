@@ -16,6 +16,16 @@ TList::Node::~Node()
 
 TList::TList() : nHead(nullptr), nCurrent(nullptr), iSize(0) {}
 
+TList::TList(TList& lOriginal) : nHead(nullptr), nCurrent(nullptr), iSize(0)
+{
+    Node* nTemp = lOriginal.nHead;
+    while (nTemp)
+    {
+        this->Push(nTemp->sData);
+        nTemp = nTemp->nNext;
+    }
+}
+
 TList::~TList()
 {
     Reset();
@@ -96,4 +106,21 @@ void TList::Reset()
         Pop();
     }
     nCurrent = nullptr;
+}
+
+TList TList::GetReversedList(TList& lOriginal)
+{
+    TList lReversed;
+
+    const char* sElem = lOriginal.First();
+    while (sElem)
+    {
+        TList::Node* nNuevoNodo = new TList::Node(sElem);
+        nNuevoNodo->nNext = lReversed.nHead;
+        lReversed.nHead = nNuevoNodo;
+        lReversed.iSize++;
+
+        sElem = lOriginal.Next();
+    }
+    return lReversed;
 }

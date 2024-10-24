@@ -128,6 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Práctica 11.cpp" />
+    <ClCompile Include="TList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

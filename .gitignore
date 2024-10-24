@@ -1,0 +1,33 @@
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.VC.opendb
+*.user
+*.suo
+*.cache
+*.pdb
+*.exe
+*.obj
+*.o
+*.dll
+*.idb
+*.ipch
+*.log
+*.tlog
+*.lastbuildstate
+*.class
+*.vspscc
+*.vssscc
+*.tmp
+*.csproj.user
+Debug/
+Release/
+
+# Backup and hidden files
+*~ 
+*.tmp
+*.bak
+*.swp
+
+# Package managers
+packages/

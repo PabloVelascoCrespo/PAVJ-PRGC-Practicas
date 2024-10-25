@@ -1,56 +1,21 @@
 #include <iostream>
-#define COLOR_ENUM \
-	REG_MACRO(Rojo) \
-	REG_MACRO(Azul) \
-	REG_MACRO(Verde) \
-	REG_MACRO(Amarillo)
+/*
+PRÁCTICA 14
 
-struct EColor
-{
-	enum Enum
-	{
-#define REG_MACRO(_PARAM) _PARAM,
+Responder a las siguientes preguntas y proporcionar código
+documentado cuya ejecución demuestre lo que se está respondiendo:
 
-		COLOR_ENUM
-#undef REG_MACRO
-	};
-
-	static const char* AsString(Enum _eEnum)
-	{
-#define REG_MACRO(_PARAM) \
-	case _PARAM: \
-		return #_PARAM;
-
-		switch (_eEnum)
-		{
-			COLOR_ENUM
-		default:
-			return "a";
-		}
-#undef REG_MACRO
-	}
-	
-	static Enum AsEnum(const char * _sEnum)
-	{
-#define REG_MACRO(_PARAM) \
-	if (strcmp(_sEnum, #_PARAM) == 0) \
-	{\
-		return _PARAM;\
-	}
-		COLOR_ENUM
-#undef REG_MACRO
-			return Enum();
-	}
-};
-
+	a) ¿Cuánto espacio ocupa toda la tabla de funciones virtuales?
+	b) ¿Dónde está situada la tabla de funciones virtuales?
+	c) ¿Cuánto espacio ocupa adicionalmente un objeto por tener una tabla de 
+	funciones virtuales?
+	d) ¿Qué pasa si llamo a un método virtual desde el constructor?
+	e) Comparar la llamada a una función virtual con la llamada a una función no
+	virtual. ¿Cuántos pasos adicionales tienen qu erealizarse para llamar a una 
+	función cuando esta es virtual?
+*/
 
 int main()
 {
-	printf("%s\n", EColor::AsString(EColor::Enum::Rojo));
-	printf("%s\n", EColor::AsString(EColor::Enum::Verde));
 
-	EColor::Enum eColor = EColor::AsEnum("Azul");
-	printf("%s\n", EColor::AsString(eColor));
-
-	constexpr float PI = 3.1416f;
 }

@@ -1,4 +1,5 @@
 #include "CString.h"
+#include <stdlib.h>
 
 CString::CString(const char* str)
 {
@@ -189,10 +190,24 @@ CString CString::Mid(int ofs, int n) const
 	return CString(newString);
 }
 
-// TODO
 CString CString::Replace(const CString& find, const CString& rep) const
 {
-	return CString();
+	int pos = Find(find, 0);
+	if (pos == -1) return *this;
+
+	size_t lenBefore = pos;
+	size_t lenAfter = strlen((const char*)m_p) - lenBefore - find.Length();
+	char* result = (char*)malloc(lenBefore + rep.Length() + lenAfter + 1);
+
+	strncpy_s(result, lenBefore + 1, (const char*)m_p, lenBefore);
+
+	strcpy_s(result + lenBefore, rep.Length() + 1, rep.ToCString());
+
+	strcpy_s(result + lenBefore + rep.Length(), lenAfter + 1, (const char*)m_p + pos + find.Length());
+
+	CString newString(result);
+	free(result);
+	return newString;
 }
 
 int CString::Find(const CString& str, int ofs) const
@@ -289,6 +304,58 @@ CString CString::RSet(int len, char c) const
 	delete[]sResult;
 	sResult = nullptr;
 	return newString;
+}
+
+CString CString::StripExt() const
+{
+	const char* dot = strrchr((const char*)m_p, '.');
+	if (!dot || dot == m_p) return *this;
+	size_t len = dot - (const char*)m_p;
+	char* result = (char*)malloc(len + 1);
+	strncpy_s(result, len + 1, (const char*)m_p, len);
+	result[len] = '\0';
+	CString newString(result);
+	free(result);
+	return newString;
+
+}
+
+CString CString::StripDir() const
+{
+	const char* slash = strrchr((const char*)m_p, '/');
+	if (!slash) slash = strrchr((const char*)m_p, '\\');
+	return slash ? CString(slash + 1) : *this;
+}
+
+CString CString::ExtractExt() const
+{
+	const char* dot = strrchr((const char*)m_p, '.');
+	if (!dot || dot == m_p) return CString("");
+	return CString(dot + 1);
+}
+
+CString CString::ExtractDir() const
+{
+	const char* slash = strrchr((const char*)m_p, '/');
+	if (!slash) slash = strrchr((const char*)m_p, '\\');
+	if (!slash) return CString("");
+	size_t len = slash - (const char*)m_p + 1;
+	char* result = (char*)malloc(len + 1);
+	strncpy_s(result, len + 1, (const char*)m_p, len);
+	result[len] = '\0';
+	CString newString(result);
+	free(result);
+	return newString;
+
+}
+
+CString CString::RealPath() const
+{
+	char absPath[_MAX_PATH];
+	if (_fullpath(absPath, (const char*)m_p, _MAX_PATH)) {
+		return CString(absPath);
+	}
+	return *this;
 }
 
 CString CString::Read(const CString& filename)

@@ -18,6 +18,7 @@ private:
 public:
     TList();
     TList(TList &lOriginal);
+    TList& operator=(const TList& lOriginal);
     ~TList();
 
     int Size() const;
@@ -26,6 +27,6 @@ public:
     const char* Next();
     const char* Pop();
     void Reset();
-    TList GetReversedList(TList &lOriginal);
+    TList GetReversedList();
 };
 #pragma once

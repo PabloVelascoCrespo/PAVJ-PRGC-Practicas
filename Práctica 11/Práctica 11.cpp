@@ -35,7 +35,7 @@ int main()
         printf("Siguiente elemento:  %s\n", sNextElem);
     }
    
-    printf("\nCreamos una copia de la lista y le añadimos un elemento");
+    printf("\nCreamos una copia de la lista y le añadimos un elemento\n");
     TList lLista2(lLista);
     lLista2.Push("Nuevo elemento");
 
@@ -46,7 +46,7 @@ int main()
         printf("Siguiente elemento:  %s\n", sNextElem);
     }
 
-    printf("Volvermos a comprobar la primera para asegurarnos que no se haya modificado\n");
+    printf("\nVolvermos a comprobar la primera para asegurarnos que no se haya modificado\n");
     printf("Primer elemento: %s\n", lLista.First());
 
     while ((sNextElem = lLista.Next()) != nullptr)
@@ -54,8 +54,11 @@ int main()
         printf("Siguiente elemento:  %s\n", sNextElem);
     }
 
-    lLista2 = lLista2.GetReversedList(lLista2);
-    printf("Primer elemento: %s\n", lLista2.First());
+    printf("\nLe damos la vuelta a la segunda lista:\n");
+
+    lLista2= lLista2.GetReversedList();
+
+    printf("Primer elemento de la lista invertida: %s\n", lLista2.First());
 
     while ((sNextElem = lLista2.Next()) != nullptr)
     {

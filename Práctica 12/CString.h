@@ -36,7 +36,7 @@ public:
 
     CString Left(int n) const;
     CString Right(int n) const;
-    CString Mid(int ofs, int n);
+    CString Mid(int ofs, int n) const;
     CString Replace(const CString& find, const CString& rep) const;
     int Find(const CString& str, int ofs) const;
 

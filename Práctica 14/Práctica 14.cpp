@@ -1,41 +1,27 @@
 #include <iostream>
 
-class CComponente1
+enum EColor
 {
-public:
-    CComponente1(int j)
-        : m_j(j)
-    {
-        printf("Constructor CComponente1");
-    }
-    int m_j;
-};
-
-class CComponente2
-{
-public:
-    CComponente2(int k)
-        : m_k(k)
-    {
-        printf("Constructor CComponente2");
-    }
-    int m_k;
-};
-
-class CEntity
-{
-public:
-    CEntity()
-        : m_oComponente1(8)
-        , m_oComponente2(67)
-    {
-        printf("Constructor CEntity");
-    }
-    CComponente1 m_oComponente1;
-    CComponente1 m_oComponente2;
+	Rojo,
+	Verde,
+	Azul
 };
 
 int main()
 {
-    std::cout << "Hello World!\n";
+#define CASE_VALUE(_COLOR) \
+	case _COLOR: \
+		printf(#_COLOR);\
+		break;
+
+	EColor eColor = Rojo;
+
+	switch (eColor)
+	{
+	CASE_VALUE(Rojo)
+	CASE_VALUE(Verde)
+	CASE_VALUE(Azul)
+	default:
+		break;
+	}
 }

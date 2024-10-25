@@ -12,13 +12,7 @@ Operadores:
 
 int main()
 {
-    CString sString1("Hola muy buenas tardes a todos, un saludito  ");
-    CString sRTrim = sString1.RTrim();
-    CString sLTrim = sString1.LTrim();
-    CString sTrim = sString1.Trim();
-
-    printf("%s\n", sString1.ToCString());
-    printf("%s\n", sLTrim.ToCString());
-    printf("%s\n", sRTrim.ToCString());
-    printf("%s\n", sTrim.ToCString());
+    CString sString1("12345");
+    CString sString2 = sString1.RSet(10,'x');
+    printf("%s\n", sString2.ToCString());
 }

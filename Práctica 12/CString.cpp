@@ -189,6 +189,12 @@ CString CString::Mid(int ofs, int n) const
 	return CString(newString);
 }
 
+// TODO
+CString CString::Replace(const CString& find, const CString& rep) const
+{
+	return CString();
+}
+
 int CString::Find(const CString& str, int ofs) const
 {
 	const char* sFound = strstr(static_cast<const char *>(m_p)+ ofs, str.ToCString());
@@ -267,13 +273,54 @@ CString CString::LSet(int len, char c) const
 	return newString;
 }
 
+
 CString CString::RSet(int len, char c) const
 {
 	if (Length() >= len)
 	{
 		return *this;
 	}
-	char* sResult = new char[len + 1];
 
+	char* sResult = new char[len + 1];
 	strcpy_s(sResult, Length() + 1, static_cast<const char*>(m_p));
+	memset(sResult + Length(), c, len - Length());
+	sResult[len] = '\0';
+	CString newString(sResult);
+	delete[]sResult;
+	sResult = nullptr;
+	return newString;
 }
+
+CString CString::Read(const CString& filename)
+{
+	FILE* fFile;
+	fopen_s(&fFile, filename.ToCString(), "r");
+	if (!fFile)
+	{
+		return CString();
+	}
+	fseek(fFile, 0, SEEK_END);
+	size_t stSize = ftell(fFile);
+	fseek(fFile, 0, SEEK_SET);
+	char* sResult = (char*)malloc(stSize + 1);
+	fread(sResult, 1, stSize, fFile);
+	sResult[stSize] = '\0';
+	fclose(fFile);
+	CString newString(sResult);
+	delete[]sResult;
+	sResult = nullptr;
+	return newString;
+}
+
+void CString::Write(const CString& filename, bool append) const
+{
+	FILE* fFile;
+	fopen_s(&fFile, filename.ToCString(), append ? "a" : "w");
+	if (!fFile)
+	{
+		return;
+	}
+	fputs((const char*)m_p, fFile);
+	fclose(fFile);
+}
+

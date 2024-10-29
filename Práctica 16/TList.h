@@ -1,124 +1,157 @@
-#ifndef TLIST_H
-#define TLIST_H
+#pragma once
 
 #include "IStorable.h"
 #include <iostream>
 
-template <typename T>
-class TList {
-    static_assert(std::is_base_of<IStorable, T>::value, "T debe derivar de IStorable");
-
+class TList
+{
 private:
-    // Nodo de la lista enlazada
-    struct Node {
-        T* data;
-        Node* next;
+    struct Node
+    {
+        IStorable* m_pData;
+        Node* m_tNext;
 
-        // Constructor del nodo
-        Node(const T& element) : data(element.Clone()), next(nullptr) {}
+        Node(const IStorable& _pElement) 
+            : m_pData(_pElement.Clone())
+            , m_tNext(nullptr) 
+        {
+        }
 
-        // Destructor del nodo
-        ~Node() { delete data; }
+        ~Node() { delete m_pData; }
     };
 
-    Node* head;
-    Node* current;
-    int size;
+    Node* m_tHead;
+    Node* m_tCurrent;
+    int m_iSize;
 
 public:
-    TList() : head(nullptr), current(nullptr), size(0) {}
+    TList() 
+        : m_tHead(nullptr)
+        , m_tCurrent(nullptr)
+        , m_iSize(0) 
+    {
+    }
 
-    // Constructor de copia
-    TList(const TList& other) : head(nullptr), current(nullptr), size(0) {
-        Node* temp = other.head;
-        while (temp) {
-            this->Push(*(temp->data));
-            temp = temp->next;
+    TList(const TList& other) 
+        : m_tHead(nullptr)
+        , m_tCurrent(nullptr),
+        m_iSize(0)
+    {
+        Node* temp = other.m_tHead;
+        while (temp)
+        {
+            this->Push(*(temp->m_pData));
+            temp = temp->m_tNext;
         }
     }
 
-    // Destructor
-    ~TList() {
+    TList& operator=(const TList& lOriginal)
+    {
+        if (this != &lOriginal)
+        {
+            Reset();
+            
+            Node* temp = lOriginal.m_tHead;
+            while (temp)
+            {
+                this->Push(*(temp->m_pData));
+                temp = temp->m_tNext;
+            }
+        }
+        return *this;
+    }
+
+    ~TList()
+    {
         Reset();
     }
 
-    // Añadir un elemento a la lista
-    void Push(const T& element) {
-        Node* newNode = new Node(element);
+    void Push(const IStorable& _pElement)
+    {
+        Node* newNode = new Node(_pElement);
 
-        if (!head) {
-            head = newNode;
+        if (!m_tHead) 
+        {
+            m_tHead = newNode;
         }
-        else {
-            Node* temp = head;
-            while (temp->next) {
-                temp = temp->next;
+        else
+        {
+            Node* temp = m_tHead;
+            while (temp->m_tNext) 
+            {
+                temp = temp->m_tNext;
             }
-            temp->next = newNode;
+            temp->m_tNext = newNode;
         }
-        size++;
+        m_tCurrent = m_tHead;
+        m_iSize++;
     }
 
-    // Obtener el tamaño de la lista
-    int Size() const {
-        return size;
+    int Size() const 
+    {
+        return m_iSize;
     }
 
-    // Obtener el primer elemento
-    const T* First() {
-        current = head;
-        if (current) {
-            return current->data;
-        }
-        return nullptr;
-    }
 
-    // Obtener el siguiente elemento
-    const T* Next() {
-        if (current && current->next) {
-            current = current->next;
-            return current->data;
+    const IStorable* First() 
+    {
+        m_tCurrent = m_tHead;
+        if (m_tCurrent)
+        {
+            return m_tCurrent->m_pData;
         }
         return nullptr;
     }
 
-    // Eliminar y retornar el primer elemento
-    T* Pop() {
-        if (!head) {
+    const IStorable* Next() 
+    {
+        if (m_tCurrent && m_tCurrent->m_tNext) 
+        {
+            m_tCurrent = m_tCurrent->m_tNext;
+            return m_tCurrent->m_pData;
+        }
+        return nullptr;
+    }
+
+    IStorable* Pop() 
+    {
+        if (!m_tHead) 
+        {
             return nullptr;
         }
 
-        Node* temp = head;
-        T* dataCopy = temp->data->Clone();
+        Node* temp = m_tHead;
+        IStorable* dataCopy = temp->m_pData->Clone();
 
-        head = head->next;
+        m_tHead = m_tHead->m_tNext;
         delete temp;
-        size--;
+        m_iSize--;
 
         return dataCopy;
     }
 
-    // Eliminar todos los elementos de la lista
-    void Reset() {
-        while (head) {
+    void Reset() 
+    {
+        while (m_tHead) 
+        {
             Pop();
         }
-        current = nullptr;
+        m_tCurrent = nullptr;
     }
 
-    // Obtener una lista invertida
-    TList GetReversedList() const {
+    TList GetReversedList() const
+    {
         TList reversedList;
-        Node* temp = head;
-        while (temp) {
-            Node* newNode = new Node(*(temp->data));
-            newNode->next = reversedList.head;
-            reversedList.head = newNode;
-            reversedList.size++;
-            temp = temp->next;
+        Node* temp = m_tHead;
+        while (temp)
+        {
+            Node* newNode = new Node(*(temp->m_pData));
+            newNode->m_tNext = reversedList.m_tHead;
+            reversedList.m_tHead = newNode;
+            reversedList.m_iSize++;
+
+            temp = temp->m_tNext;
         }
         return reversedList;
     }
 };
-
-#endif // TLIST_H

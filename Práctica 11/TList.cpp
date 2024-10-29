@@ -28,11 +28,13 @@ TList::TList(TList& lOriginal) : nHead(nullptr), nCurrent(nullptr), iSize(0)
 
 TList& TList::operator=(const TList& lOriginal)
 {
-    if (this != &lOriginal) {
+    if (this != &lOriginal)
+    {
         this->Reset();
 
         Node* temp = lOriginal.nHead;
-        while (temp) {
+        while (temp)
+        {
             this->Push(temp->sData);
             temp = temp->nNext;
         }

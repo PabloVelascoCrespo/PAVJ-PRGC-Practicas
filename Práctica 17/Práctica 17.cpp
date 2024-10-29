@@ -11,6 +11,11 @@ Macros. Utilidades para enumerados:
     enumerados con esa funcionalidad.
 */
 
+class CEnum
+{
+
+};
+
 int main()
 {
 

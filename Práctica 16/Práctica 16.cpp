@@ -19,7 +19,7 @@ int main()
     lista.Push(MyInt(42));
     lista.Push(MyString("Otro elemento de texto"));
 
-    std::cout << "Elementos en la lista original:" << std::endl;
+    printf("Elementos en la lista original:\n");
     const IStorable* elem = lista.First();
     while (elem) 
     {

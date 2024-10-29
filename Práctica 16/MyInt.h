@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-class MyInt : public IStorable {
+class MyInt : public IStorable
+{
 private:
     int m_iValue;
 
@@ -14,18 +15,18 @@ public:
     {
     }
 
-    // Implementación del método Clone
-    MyInt* Clone() const override {
+    MyInt* Clone() const override
+    {
         return new MyInt(*this);
     }
 
-    // Método para obtener el valor
-    int GetValue() const {
+    int GetValue() const
+    {
         return m_iValue;
     }
 
-    // Método para imprimir el valor
-    void Print() const {
+    void Print() const 
+    {
         std::cout << m_iValue << std::endl;
     }
 };

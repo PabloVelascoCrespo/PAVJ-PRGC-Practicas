@@ -1,9 +1,8 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
-#include <debugapi.h>
 #include <windows.h>
-
+#define MEMORY_LEAKS_MONITOR
 /*
 PRÁCTICA 18
 Implementar un sistema de Macros que permita la detección de
@@ -81,7 +80,7 @@ int main()
     // Asignaciones de prueba
     int* pInt = NEW_ARRAY(int, 10);
     DELETE_ARRAY(pInt);
-
+    printf("HOLA");
     int* pLeak = NEW_ARRAY(int, 5); // Esta memoria no será liberada para probar el reporte de fugas
 
     // Reporte de fugas de memoria

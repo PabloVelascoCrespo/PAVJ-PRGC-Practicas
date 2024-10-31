@@ -116,4 +116,12 @@ int main()
     printf("%s\n", sCadena);
 
     EColor::Enum oBlue = EColor::AsEnum("Blue");
+    if (oBlue == EColor::Blue)
+    {
+        printf("We have found blue!");
+    }
+    else
+    {
+        printf("We coulnd't find blue :c");
+    }
 }

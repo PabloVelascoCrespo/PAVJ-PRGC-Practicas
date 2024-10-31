@@ -35,7 +35,10 @@ void RegisterAllocation(void* _ptr, size_t _stSize, const char* _sFile, unsigned
 {
     g_memoryMap[_ptr] = { _stSize, _sFile, _uLine};
     std::string sMsg = "Allocated at: " + std::string(_sFile) + ":" + std::to_string(_uLine) + " - Address: " + std::to_string(reinterpret_cast<uintptr_t>(_ptr)) + " Size: " + std::to_string(_stSize) + "\n";
-    OutputDebugString(reinterpret_cast<LPCWSTR>(sMsg.c_str()));
+    wchar_t wtext[256];
+    size_t* wtextSize = 0;
+    mbstowcs_s(wtextSize, wtext, sMsg.c_str(), sMsg.length());
+    OutputDebugString(wtext);
 }
 
 void RegisterDeallocation(void* _ptr)
@@ -46,7 +49,7 @@ void RegisterDeallocation(void* _ptr)
     }
     else 
     {
-        OutputDebugString(reinterpret_cast<LPCWSTR>("Warning: Attempted to deallocate untracked memory!\n"));
+        OutputDebugString(L"Warning: Attempted to deallocate untracked memory!\n");
     }
 }
 
@@ -56,20 +59,23 @@ void ReportMemoryLeaks()
     {
         const auto& info = entry.second;
         std::string sMsg = "Memory leak at " + std::string(info.sFile) + ":" + std::to_string(info.uLine) +" - Address: " + std::to_string(reinterpret_cast<uintptr_t>(entry.first)) + " Size: " + std::to_string(info.stSize) + "\n";
-        OutputDebugString(reinterpret_cast<LPCWSTR>(sMsg.c_str()));
+        wchar_t wtext[256];
+        size_t* wtextSize = 0;
+        mbstowcs_s(wtextSize, wtext, sMsg.c_str(), sMsg.length());
+        OutputDebugString(wtext);
     }
 }
 
 #define NEW(size) (RegisterAllocation(new char[size], size, __FILE__, __LINE__), new char[size])
 #define NEW_ARRAY(type, count) (RegisterAllocation(new type[count], sizeof(type) * count, __FILE__, __LINE__), new type[count])
-#define DELETE(ptr) (RegisterDeallocation(ptr), delete ptr)
+#define DELETE_(ptr) (RegisterDeallocation(ptr), delete ptr)
 #define DELETE_ARRAY(ptr) (RegisterDeallocation(ptr), delete[] ptr)
 
 #else // ELSE: MEMORY_LEAKS_MONITOR
 
 #define NEW(size) new char[size]
 #define NEW_ARRAY(type, count) new type[count]
-#define DELETE(ptr) delete ptr
+#define DELETE_(ptr) delete ptr
 #define DELETE_ARRAY(ptr) delete[] ptr
 
 #endif // END_IF MEMORY_LEAKS_MONITOR
@@ -80,10 +86,11 @@ int main()
     // Asignaciones de prueba
     int* pInt = NEW_ARRAY(int, 10);
     DELETE_ARRAY(pInt);
-    printf("HOLA");
-    int* pLeak = NEW_ARRAY(int, 5); // Esta memoria no será liberada para probar el reporte de fugas
+    int* pLeak = NEW_ARRAY(int, 5); // Esta memoria no será liberada para probar el reporte de memory leaks
 
-    // Reporte de fugas de memoria
+    // Reporte de memory leaks
     ReportMemoryLeaks();
+    DELETE_ARRAY(pLeak);
+
 #endif
 }

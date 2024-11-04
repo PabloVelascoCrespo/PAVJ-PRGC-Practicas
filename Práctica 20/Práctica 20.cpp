@@ -17,5 +17,5 @@ Templates: cambiar la práctica 4 para que:
 
 int main()
 {
-    std::cout << "Hello World!\n";
+
 }

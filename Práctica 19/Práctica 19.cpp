@@ -17,7 +17,7 @@ int main()
     listaInt.Push(20);
     listaInt.Push(30);
 
-    std::cout << "Lista de enteros:" << std::endl;
+    printf("Lista de enteros:\n");
     const int* num = listaInt.First();
     while (num) 
     {
@@ -30,7 +30,7 @@ int main()
     listaString.Push("Hola");
     listaString.Push("Mundo");
 
-    std::cout << "\nLista de cadenas:" << std::endl;
+    printf("\nLista de cadenas:\n");
     const std::string* str = listaString.First();
     while (str)
     {
@@ -39,7 +39,7 @@ int main()
     }
 
     TList<int> listaIntInvertida = listaInt.GetReversedList();
-    std::cout << "\nLista de enteros invertida:" << std::endl;
+    printf("\nLista de enteros invertida:\n");
     num = listaIntInvertida.First();
     while (num)
     {

@@ -1,4 +1,5 @@
 #include <iostream>
+#pragma warning( disable : 4002) // todo: explicación de por qué ignoro el warning
 
 /*
 PRÁCTICA 17

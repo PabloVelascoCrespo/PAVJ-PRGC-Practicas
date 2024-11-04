@@ -58,9 +58,6 @@ public:
 
 // b)
 
-#include <iostream>
-#include <tuple>
-
 #define EXPAND_MACRO(x) x
 #define SELECT_MACRO(_1, _2, _3, _4, _5, _6, _7, NAME) NAME
 #define APPLY_1(_FUNC, X) _FUNC(X)

@@ -1,23 +1,22 @@
 #pragma once
 
-#include "IStorable.h"
+
 #include <iostream>
 
-class TList
+template <typename T>
+class TList 
 {
 private:
-    struct Node
+    struct Node 
     {
-        IStorable* m_pData;
+        T m_tData;
         Node* m_tNext;
 
-        Node(const IStorable& _pElement) 
-            : m_pData(_pElement.Clone())
-            , m_tNext(nullptr) 
+        Node(const T& _m_tData)
+            : m_tData(_m_tData),
+            m_tNext(nullptr) 
         {
         }
-
-        ~Node() { delete m_pData; }
     };
 
     Node* m_tHead;
@@ -32,15 +31,15 @@ public:
     {
     }
 
-    TList(const TList& _other) 
+    TList(const TList& _lOriginal)
         : m_tHead(nullptr)
-        , m_tCurrent(nullptr),
-        m_iSize(0)
+        , m_tCurrent(nullptr)
+        , m_iSize(0) 
     {
-        Node* temp = _other.m_tHead;
-        while (temp)
+        Node* temp = _lOriginal.m_tHead;
+        while (temp) 
         {
-            this->Push(*(temp->m_pData));
+            this->Push(temp->m_tData);
             temp = temp->m_tNext;
         }
     }
@@ -50,11 +49,11 @@ public:
         if (this != &_lOriginal)
         {
             Reset();
-            
+
             Node* temp = _lOriginal.m_tHead;
-            while (temp)
+            while (temp) 
             {
-                this->Push(*(temp->m_pData));
+                this->Push(temp->m_tData);
                 temp = temp->m_tNext;
             }
         }
@@ -66,7 +65,7 @@ public:
         Reset();
     }
 
-    void Push(const IStorable& _pElement)
+    void Push(const T& _pElement)
     {
         Node* newNode = new Node(_pElement);
 
@@ -74,7 +73,7 @@ public:
         {
             m_tHead = newNode;
         }
-        else
+        else 
         {
             Node* temp = m_tHead;
             while (temp->m_tNext) 
@@ -83,7 +82,6 @@ public:
             }
             temp->m_tNext = newNode;
         }
-        m_tCurrent = m_tHead;
         m_iSize++;
     }
 
@@ -92,42 +90,41 @@ public:
         return m_iSize;
     }
 
-
-    const IStorable* First() 
+    const T* First() 
     {
         m_tCurrent = m_tHead;
         if (m_tCurrent)
         {
-            return m_tCurrent->m_pData;
+            return &(m_tCurrent->m_tData);
         }
         return nullptr;
     }
 
-    const IStorable* Next() 
+    const T* Next() 
     {
         if (m_tCurrent && m_tCurrent->m_tNext) 
         {
             m_tCurrent = m_tCurrent->m_tNext;
-            return m_tCurrent->m_pData;
+            return &(m_tCurrent->m_tData);
         }
         return nullptr;
     }
 
-    IStorable* Pop() 
+    T Pop() 
     {
         if (!m_tHead) 
         {
-            return nullptr;
+            throw std::out_of_range("La lista está vacía.");
         }
 
         Node* temp = m_tHead;
-        IStorable* dataCopy = temp->m_pData->Clone();
+        T m_tDataCopy = temp->m_tData;
 
         m_tHead = m_tHead->m_tNext;
         delete temp;
         m_iSize--;
 
-        return dataCopy;
+        return m_tDataCopy;
     }
 
     void Reset() 
@@ -139,19 +136,21 @@ public:
         m_tCurrent = nullptr;
     }
 
-    TList GetReversedList() const
+    TList GetReversedList() const 
     {
         TList reversedList;
+
         Node* temp = m_tHead;
-        while (temp)
+        while (temp) 
         {
-            Node* newNode = new Node(*(temp->m_pData));
+            Node* newNode = new Node(temp->m_tData);
             newNode->m_tNext = reversedList.m_tHead;
             reversedList.m_tHead = newNode;
             reversedList.m_iSize++;
 
             temp = temp->m_tNext;
         }
+
         return reversedList;
     }
 };

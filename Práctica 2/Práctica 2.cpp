@@ -58,10 +58,10 @@ int ObtenerMayorByte(int _tTabla[])
     return iMax_;
 }
 
-void DarVueltaCadena(char* _Cadena)
+void DarVueltaCadena(char* _sCadena)
 {
-    char* cInicio = _Cadena;
-    char* cFin = _Cadena + strlen(_Cadena) - 1;
+    char* cInicio = _sCadena;
+    char* cFin = _sCadena + strlen(_sCadena) - 1;
 
     while (cInicio < cFin) {
         char cAux = *cInicio;

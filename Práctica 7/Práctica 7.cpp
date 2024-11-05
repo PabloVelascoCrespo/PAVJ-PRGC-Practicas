@@ -13,7 +13,7 @@ int main()
 {
     // Probamos los métodos de la práctica 5 pero usando el namespace
 		// Abrir
-	void* pFile = Practica5::OpenFile("F:\\prueba.txt", "r");
+	void* pFile = Practica5::OpenFile("prueba.txt", "r");
 
 	//Leer
 	unsigned int const uBufferSize = 128;
@@ -35,7 +35,7 @@ int main()
 	}
 
 	//Escribir
-	pFile = Practica5::OpenFile("F:\\prueba.txt", "a");
+	pFile = Practica5::OpenFile("prueba.txt", "a");
 	sBuffer[0] = 'x';
 	sBuffer[1] = '\0';
 
@@ -44,7 +44,7 @@ int main()
 	printf("Se han escrito %zu caracteres\n", uWritenChars);
 
 	Practica5::CloseFile(pFile);
-	pFile = Practica5::OpenFile("F:\\prueba.txt", "r");
+	pFile = Practica5::OpenFile("prueba.txt", "r");
 	uReadChars = Practica5::ReadFile(sBuffer, uBufferSize, pFile);
 	sBuffer[uReadChars] = '\0';
 	printf("El fichero ahora contiene %s\n", sBuffer);
@@ -53,9 +53,9 @@ int main()
 
     // Probamos los métodos de la práctica 6 pero usando el namespace
 	char* sCadena = _strdup("hola");
-	unsigned int uContador = Practica6::VecesQueApareceCadenaEnFichero(sCadena, Practica5::OpenFile("F:\\prueba.txt", "r"));
+	unsigned int uContador = Practica6::VecesQueApareceCadenaEnFichero(sCadena, Practica5::OpenFile("prueba.txt", "r"));
 	printf("%d\n", uContador);
 
-	int iSuma = Practica6::SumaNumerosFichero(Practica5::OpenFile("F:\\prueba.txt", "r"));
+	int iSuma = Practica6::SumaNumerosFichero(Practica5::OpenFile("prueba.txt", "r"));
 	printf("%d\n", iSuma);
 }

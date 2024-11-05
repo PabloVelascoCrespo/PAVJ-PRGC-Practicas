@@ -12,6 +12,7 @@ Operadores:
 
 int main()
 {
+    //TODO: hacer un main para que se vea que se usa cada uno de los métodos
     CString sString1("12345");
     CString sString2 = sString1.RSet(10,'x');
     printf("%s\n", sString2.ToCString());

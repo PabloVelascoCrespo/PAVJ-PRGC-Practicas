@@ -12,7 +12,7 @@ Añadir al namespace de utilidades creado en la práctica 5:
 
 int main()
 {
-	TList* lLista = static_cast<TList*>(Practica5::GetNumList(Practica5::OpenFile("F:\\prueba.txt", "r")));
+	TList* lLista = static_cast<TList*>(Practica5::GetNumList(Practica5::OpenFile("prueba.txt", "r")));
     printf("Tamano de la lista: %d\n", lLista->Size());
 
     printf("Primer elemento: %s\n", lLista->First());

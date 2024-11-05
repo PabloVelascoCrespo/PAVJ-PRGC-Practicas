@@ -14,7 +14,7 @@ int main()
 	TFile TFile;
 
 	// Abrir
-	void* pFile = TFile.OpenFile("F:\\prueba.txt", "r");
+	void* pFile = TFile.OpenFile("prueba.txt", "r");
 
 	//Leer
 	unsigned int const uBufferSize = 128;
@@ -36,7 +36,7 @@ int main()
 	}
 
 	//Escribir
-	pFile = TFile.OpenFile("F:\\prueba.txt", "a");
+	pFile = TFile.OpenFile("prueba.txt", "a");
 	sBuffer[0] = 'x';
 	sBuffer[1] = '\0';
 
@@ -45,7 +45,7 @@ int main()
 	printf("Se han escrito %zu caracteres\n", uWritenChars);
 
 	TFile.CloseFile();
-	pFile = TFile.OpenFile("F:\\prueba.txt", "r");
+	pFile = TFile.OpenFile("prueba.txt", "r");
 	uReadChars = TFile.ReadFile(sBuffer, uBufferSize);
 	sBuffer[uReadChars] = '\0';
 	printf("El fichero ahora contiene %s\n", sBuffer);

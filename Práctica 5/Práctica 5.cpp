@@ -36,7 +36,7 @@ llamadas de prueba en un "main".
 int main()
 {
 	// Abrir
-	void* pFile = OpenFile("F:\\prueba.txt", "r");
+	void* pFile = OpenFile("prueba.txt", "r");
 
 	//Leer
 	unsigned int const uBufferSize = 128;
@@ -58,7 +58,7 @@ int main()
 	}
 
 	//Escribir
-	pFile = OpenFile("F:\\prueba.txt", "a");
+	pFile = OpenFile("prueba.txt", "a");
 	sBuffer[0] = 'x';
 	sBuffer[1] = '\0';
 
@@ -67,7 +67,7 @@ int main()
 	printf("Se han escrito %zu caracteres\n", uWritenChars);
 	
 	CloseFile(pFile);
-	pFile = OpenFile("F:\\prueba.txt", "r");
+	pFile = OpenFile("prueba.txt", "r");
 	uReadChars = ReadFile(sBuffer, uBufferSize, pFile);
 	sBuffer[uReadChars] = '\0';
 	printf("El fichero ahora contiene %s\n", sBuffer);

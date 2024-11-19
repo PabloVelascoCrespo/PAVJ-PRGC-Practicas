@@ -1,0 +1,1 @@
+contenido del fichero para probar mi clase CString :D

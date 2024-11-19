@@ -12,7 +12,7 @@ Namespaces.
 int main()
 {
     // Probamos los métodos de la práctica 5 pero usando el namespace
-		// Abrir
+	// Abrir
 	void* pFile = Practica5::OpenFile("prueba.txt", "r");
 
 	//Leer

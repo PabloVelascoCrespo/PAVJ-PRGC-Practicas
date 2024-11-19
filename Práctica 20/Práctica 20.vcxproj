@@ -128,7 +128,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="consola.cpp" />
     <ClCompile Include="Práctica 20.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="consola.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

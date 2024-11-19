@@ -28,7 +28,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="prueba.txt">
+    <Text Include="pruebaSuma.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="pruebaHola.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
   </ItemGroup>

@@ -15,9 +15,9 @@ ficheros.
 int main()
 {
     char* sCadena = _strdup("hola");
-    unsigned int uContador = VecesQueApareceCadenaEnFichero(sCadena, OpenFile("prueba.txt", "r"));
+    unsigned int uContador = VecesQueApareceCadenaEnFichero(sCadena, OpenFile("pruebaHola.txt", "r"));
     printf("%d\n", uContador);
 
-    int iSuma = SumaNumerosFichero(OpenFile("prueba.txt", "r"));
+    int iSuma = SumaNumerosFichero(OpenFile("pruebaSuma.txt", "r"));
     printf("%d\n", iSuma);
 }
